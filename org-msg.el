@@ -1266,9 +1266,12 @@ MML tags."
 (defun org-msg-ctrl-c-ctrl-c ()
   "Send message like `message-send-and-exit'.
 If the current buffer is OrgMsg buffer and OrgMsg is enabled (see
-`org-msg-toggle'), it calls `message-send-and-exit'."
+`org-msg-toggle'), it calls `message-send-and-exit'. With a prefix
+argument (under the same conditions), calls `message-send'."
   (when (eq major-mode 'org-msg-edit-mode)
-    (org-msg-mua-call 'send-and-exit 'message-send-and-exit)))
+    (if current-prefix-arg
+	(org-msg-mua-call 'send 'message-send)
+      (org-msg-mua-call 'send-and-exit 'message-send-and-exit))))
 
 (defun org-msg-tab ()
   "Complete names or Org mode visibility cycle.
